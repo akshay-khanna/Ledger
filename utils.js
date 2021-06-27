@@ -107,20 +107,27 @@ function monthlyPayment(details) {
 	let start_date = new Date(Date.parse(details.start_date)),
 		end_date = new Date(Date.parse(details.end_date)),
 		monthlyResult = [],
-		remaining_days;
+		remaining_days=0;
 
-	let new_start_date = new Date(start_date),
+	let new_start_date = new Date(start_date.valueOf()),
 		i = 0;
 
-	while (end_date >= new_start_date) {
-		if (end_date >= new_start_date) {
+	while (end_date > new_start_date) {
+		if (end_date > new_start_date) {
+			new_end_date=new Date(new_start_date.valueOf());
+			new_end_date.addMonths(1);
+			new_end_date.setDate(new_end_date.getDate()-1);
 			monthlyResult.push({
 				tenancy_start: new_start_date.toDateString(),
-				tenancy_end: new_start_date.addMonths(1).toDateString(),
+				tenancy_end: new_end_date.toDateString(),
 				fortnight_rent: ((details.weekly_rent / 7) * 365) / 12,
 			});
 			i++;
-			new_start_date = new_start_date.addMonths(1);
+			new_start_date.addMonths(1);
+			new_start_date.setDate(new_start_date.getDate());
+			//console.log(new_start_date.toString());
+			//new_start_date = new_start_date.addMonths(1);
+			
 		} else {
 			break;
 		}
