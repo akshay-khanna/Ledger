@@ -112,8 +112,7 @@ end_date needs to be one less than one month add
 function monthlyPayment(details) {
 	let start_date = new Date(Date.parse(details.start_date)),
 		end_date = new Date(Date.parse(details.end_date)),
-		monthlyResult = []
-		,
+		monthlyResult = [],
 		remaining_days=0;
 
 	let new_start_date = new Date(start_date.valueOf()),
