@@ -18,11 +18,10 @@ var con = mysql.createConnection({
 });
 
 // create application/json parser
-var jsonParser = bodyParser.json();
 
+app.use(express.json());
+app.use(express.urlencoded({extended: true }));
 // create application/x-www-form-urlencoded parser
-// var urlencodedParser = bodyParser.urlencoded({ extended: false });
-app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static(path.join(__dirname, './')));
 
@@ -60,7 +59,7 @@ app.post('/tenant_info', function (req, res) {
 		res.send('FORNIGHT PAYMENT SCHED:: ' + JSON.stringify(tenant_info));
 	} else if (req.body.frequency === 'monthly') {
 		let tenant_info = utils.monthlyPayment(req.body);
-		res.send('MONTHLY PAYMENT SCHED:: ' + JSON.stringify(tenant_info));
+		res.send(tenant_info);
 	}
 });
 

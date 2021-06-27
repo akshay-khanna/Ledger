@@ -106,29 +106,39 @@ function fortnightPayment(details) {
 function monthlyPayment(details) {
 	let start_date = new Date(Date.parse(details.start_date)),
 		end_date = new Date(Date.parse(details.end_date)),
-		monthlyResult = [],
-		remaining_days;
+		monthlyResult = []
+		,
+		remaining_days=0;
 
-	let new_start_date = new Date(start_date),
+	let new_start_date = new Date(start_date.valueOf()),
 		i = 0;
 
 	while (end_date >= new_start_date) {
-		if (end_date >= new_start_date) {
+		let new_end_date=new Date(start_date.valueOf());
+		new_end_date=new_end_date.addMonths(i+1);
+		new_end_date.setDate(new_end_date.getDate()-1);
+		//console.log("Here "+new_end_date.toString());
+		if (new_end_date <=end_date) {
 			monthlyResult.push({
 				tenancy_start: new_start_date.toDateString(),
-				tenancy_end: new_start_date.addMonths(1).toDateString(),
+				tenancy_end: new_end_date.toDateString(),
 				fortnight_rent: ((details.weekly_rent / 7) * 365) / 12,
 			});
 			i++;
-			new_start_date = new_start_date.addMonths(1);
+			//console.log("Here2 "+new_end_date.toString());
+			new_start_date=new_end_date.addDays(1);
+			console.log(new_start_date.toString());
+			//new_start_date = new_start_date.addMonths(1);
+			
 		} else {
 			break;
 		}
 	}
 	console.log('new_start_date', new_start_date, 'end_date', end_date, 'i', i);
 
-	if (end_date > new_start_date) {
+	if (end_date >= new_start_date) {
 		remaining_days = daysBetween(new_start_date, end_date);
+		remaining_days+=1;
 	}
 
 	console.log('remaining_days', remaining_days);
@@ -137,13 +147,13 @@ function monthlyPayment(details) {
 		monthlyResult.push({
 			tenancy_start: new_start_date.toDateString(),
 			tenancy_end: end_date.toDateString(),
-			fortnight_rent: (details.weekly_rent / 7) * (remaining_days + 1),
+			fortnight_rent: (details.weekly_rent / 7) * (remaining_days),
 		});
 	}
 
-	console.log('FINALL monthlyResult', monthlyResult);
+	console.log('FINALL monthlyResult',monthlyResult);
 
-	return monthlyResult;
+	return {monthlyResult};
 }
 
 module.exports = {
