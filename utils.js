@@ -102,7 +102,13 @@ function fortnightPayment(details) {
 	console.log('mmmmm', fortnightResult);
 	return fortnightResult;
 }
+/*
+new_start_date : Points towards tenancy_start
+new_end_date: Points towards tenancy_end 
+need to add months on base start date to handle february cases
+end_date needs to be one less than one month add
 
+*/
 function monthlyPayment(details) {
 	let start_date = new Date(Date.parse(details.start_date)),
 		end_date = new Date(Date.parse(details.end_date)),
