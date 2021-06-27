@@ -113,10 +113,10 @@ function monthlyPayment(details) {
 		i = 0;
 
 	while (end_date > new_start_date) {
-		if (end_date > new_start_date) {
-			new_end_date=new Date(new_start_date.valueOf());
-			new_end_date.addMonths(1);
-			new_end_date.setDate(new_end_date.getDate()-1);
+		new_end_date=new Date(new_start_date.valueOf());
+		new_end_date.addMonths(1);
+		new_end_date.setDate(new_end_date.getDate()-1);
+		if (new_end_date <end_date) {
 			monthlyResult.push({
 				tenancy_start: new_start_date.toDateString(),
 				tenancy_end: new_end_date.toDateString(),
@@ -144,7 +144,7 @@ function monthlyPayment(details) {
 		monthlyResult.push({
 			tenancy_start: new_start_date.toDateString(),
 			tenancy_end: end_date.toDateString(),
-			fortnight_rent: (details.weekly_rent / 7) * (remaining_days + 1),
+			fortnight_rent: (details.weekly_rent / 7) * (remaining_days+1),
 		});
 	}
 
