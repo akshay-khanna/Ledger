@@ -1,8 +1,5 @@
 var express = require('express');
-var http = require('http');
-var util = require('util');
 var path = require('path');
-var bodyParser = require('body-parser');
 var utils = require('./utils.js');
 
 var app = express();
@@ -23,7 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true }));
 // create application/x-www-form-urlencoded parser
 
-app.use(express.static(path.join(__dirname, './')));
+app.use(express.static(path.join(__dirname, './views')));
 
 con.connect(function (err) {
 	if (err) {
@@ -35,10 +32,11 @@ con.connect(function (err) {
 });
 
 app.get('/', (req, res, next) => {
-	res.sendFile(path.join(__dirname, './form.html'));
+	res.sendFile(path.join(__dirname, './views/form.html'));
 });
 
 app.post('/tenant_info', function (req, res) {
+	console.log(req.body);
 	// 	db.serialize(()=>{
 	// 	  db.run('INSERT INTO emp(id,name) VALUES(?,?)', [req.body.id, req.body.name], function(err) {
 	// 		if (err) {

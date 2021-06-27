@@ -132,14 +132,14 @@ function monthlyPayment(details) {
 			i++;
 			//console.log("Here2 "+new_end_date.toString());
 			new_start_date=new_end_date.addDays(1);
-			console.log(new_start_date.toString());
+			//console.log(new_start_date.toString());
 			//new_start_date = new_start_date.addMonths(1);
 			
 		} else {
 			break;
 		}
 	}
-	console.log('new_start_date', new_start_date, 'end_date', end_date, 'i', i);
+	//console.log('new_start_date', new_start_date, 'end_date', end_date, 'i', i);
 
 	if (end_date >= new_start_date) {
 		remaining_days = daysBetween(new_start_date, end_date);
