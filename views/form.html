@@ -12,7 +12,7 @@
     <header>
         <h2>Tenant Database</h2>
     </header>
-    <form action="/tenant_info" method="POST">
+    <form action="/tenant_info" method="POST" onsubmit="return validateForm()">
         <fieldset>
             <label>Start Date</label>
             <input type="date" id='start_date' name="start_date" required>
